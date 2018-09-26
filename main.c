@@ -28,7 +28,7 @@ int main() {
 			case Escribir: printf("Token: %s\n", token_names[t]); break;
 			case Fin: printf("Token: %s\n", token_names[t]); break;
 			case Identificador: case Constante: printf("Token: %s\tlexema: %s\n", token_names[t], yytext); break;
-			case FDT: printf("%s", token_names[t]);
 		}
+	printf("%s\n", token_names[t]);
 	return 0;
 }
