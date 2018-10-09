@@ -4,15 +4,15 @@
 }
 %{
 %}
-%option outfile="scanner.c"
+%option outfile="scanner.c" header-file="scanner.h"
 %option nodefault
 L [[:alpha:]]
 D [0-9]
 LD [[:alnum:]]
 S [[:space:]]
-P [\.\(\)\+\-\*,/]
+P [.()+*,/\-]
 C \/\/.*
-O [^[:alnum:]]{-}[[:space:]]{-}[\.\(\)\+\-\*,/]
+O [^[:alnum:]]{-}[[:space:]]{-}[.()+*,/\-]
 %%
 programa		return Programa;
 variables		return Variables;
@@ -32,4 +32,3 @@ fin			return Fin;
 {C}			;
 %%
 
-#include "main.c"
