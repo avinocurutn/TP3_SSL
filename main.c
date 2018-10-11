@@ -23,11 +23,17 @@ char *token_names[] = {"Fin de Archivo", "Identificador", "Constante", "Programa
 	    	       "Definir", "Código", "Leer", "Asignación", "Escribir", "Fin"};
 int main() {
 	enum token t;
-	while ((t = yylex()))
-		switch (t) {
-			case Identificador: case Constante: printf("Token: %s\tlexema: %s\n", token_names[t], yytext); break;
-			default: printf("Token: %s\n", token_names[t]); break;
+	while ((t = yylex())) {
+		//Los mayores a 11 se imprimen como caracteres en ASCII
+		if(t < 11) {
+			switch (t) {
+				case Identificador: case Constante: printf("Token: %s\tlexema: %s\n", token_names[t], yytext); break;
+				default: printf("Token: %s\n", token_names[t]); break;
+			}
+		} else {
+			printf("Token: '%c'\n", t);
 		}
+	}
 	printf("%s\n", token_names[t]);
 	return 0;
 }

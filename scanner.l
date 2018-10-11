@@ -22,7 +22,7 @@ leer			return Leer;
 \<\-			return Asignacion;
 escribir		return Escribir;
 fin			return Fin;
-{P}			printf("Token: '%s'\n", yytext);
+{P}			return yytext[0];
 {L}{LD}*		return Identificador;
 {D}+			return Constante;
 {O}+			printf("Error Léxico: cadena desconocida: %s\n", yytext);

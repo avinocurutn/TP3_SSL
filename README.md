@@ -3,5 +3,5 @@
 Comandos para ejecutar en la terminal:
 
 1) flex scanner.l
-2) gcc -o scanner scanner.c -lfl
-3) ./scanner <entrada.txt
+2) gcc -g -Wall scanner.c main.c -o scantest -lfl
+3) ./scantest <entrada.txt >salida.txt
