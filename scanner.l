@@ -1,11 +1,11 @@
-%top{
-#include <stdio.h>
-#include "tokens.h"
-}
 %{
+#include <stdio.h>
+#include <strings.h>
+#include "tokens.h"
 %}
-%option outfile="scanner.c" header-file="scanner.h"
-%option nodefault
+%option header-file="scanner.h"
+%option outfile="scanner.c" 
+%option yylineno
 L [[:alpha:]]
 D [0-9]
 LD [[:alnum:]]
@@ -14,20 +14,20 @@ P [.()+*,/\-]
 C \/\/.*
 O [^[:alnum:]]{-}[[:space:]]{-}[.()+*,/\-]
 %%
-programa		return Programa;
-variables		return Variables;
-definir			return Definir;
-codigo			return Codigo;
-leer			return Leer;
-\<\-			return Asignacion;
-escribir		return Escribir;
-fin			return Fin;
-{P}			return yytext[0];
-{L}{LD}*		return Identificador;
-{D}+			return Constante;
-{O}+			printf("Error Léxico: cadena desconocida: %s\n", yytext);
-{O}+|{D}+{L}+{LD}*	printf("Error Léxico: constante inválida: %s\n", yytext);
-{L}{LD}*{O}+({LD}|{O})*	printf("Error Léxico: identificador inválido: %s\n", yytext);
+programa		{yylval = strdup(yytext); return PROGRAMA;}
+variables		{yylval = strdup(yytext); return VARIABLES;}
+definir			{yylval = strdup(yytext); return DEFINIR;}
+codigo			{yylval = strdup(yytext); return CODIGO;}
+leer			{yylval = strdup(yytext); return LEER;}
+\<\-			{yylval = strdup(yytext); return ASIGNACION;}
+escribir		{yylval = strdup(yytext); return ESCRIBIR;}
+fin			{yylval = strdup(yytext); return FIN;}
+{P}			{return yytext[0];}
+{L}{LD}*		{yylval = strdup(yytext); return IDENTIFICADOR;}
+{D}+			{yylval = strdup(yytext); return CONSTANTE;}
+{O}+			{yylexerrs++; yyerror("Error léxico");} //printf("Error Léxico: cadena desconocida: %s\n", yytext);
+{O}+|{D}+{L}+{LD}*	{yylexerrs++; yyerror("Error léxico");} //printf("Error Léxico: constante inválida: %s\n", yytext);
+{L}{LD}*{O}+({LD}|{O})*	{yylexerrs++; yyerror("Error léxico");} //printf("Error Léxico: identificador inválido: %s\n", yytext);
 {S}+			/*ignorar*/
 {C}			;
 %%

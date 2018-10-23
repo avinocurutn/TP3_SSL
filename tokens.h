@@ -1,2 +1,2 @@
-enum token {FDT, Identificador, Constante, Programa, Variables, 
-	    Definir, Codigo, Leer, Asignacion, Escribir, Fin};
+enum token {FDT, IDENTIFICADOR, CONSTANTE, PROGRAMA, VARIABLES, 
+	    DEFINIR, CODIGO, LEER, ASIGNACION, ESCRIBIR, FIN};

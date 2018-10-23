@@ -14,10 +14,9 @@
 */
 
 #include <stdio.h>
-#include "tokens.h"
+#include "scanner.h"
 
-extern int yylex();
-extern char* yytext;
+extern int yyparse();
 
 char *token_names[] = {"Fin de Archivo", "Identificador", "Constante", "Programa", "Variables", 
 	    	       "Definir", "Código", "Leer", "Asignación", "Escribir", "Fin"};
@@ -27,7 +26,7 @@ int main() {
 		//Los mayores a 11 se imprimen como caracteres en ASCII
 		if(t < 11) {
 			switch (t) {
-				case Identificador: case Constante: printf("Token: %s\tlexema: %s\n", token_names[t], yytext); break;
+				case IDENTIFICADOR: case CONSTANTE: printf("Token: %s\tlexema: %s\n", token_names[t], yytext); break;
 				default: printf("Token: %s\n", token_names[t]); break;
 			}
 		} else {
